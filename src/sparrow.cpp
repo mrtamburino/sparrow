@@ -139,3 +139,37 @@ void Sparrow::shutDownSubsystems (void)
       hal::destroyBoardCtrl (&_ptrBoardCtrl);
     }
 }
+
+void Sparrow::_initializeSubsystems(unsigned char eSubSystem_IN)
+{
+    switch(eSubSystem_IN)
+    {
+        case boardctrl:
+            _initBoardCtrl();
+            break;
+            
+        case motorsctrl:
+            _initMotorsCtrl();
+            break;
+            
+        case instumentsctrl:
+            _initInstrumentsCtrl();
+            break;
+            
+        case flyassistant:
+            _initFlyAssistant();
+            break;
+            
+        default:
+            spwWLOG( "Not valid controller: %d\n", eSubSystem_IN);
+            break;
+    }
+}
+
+void Sparrow::initializeSubsystems(void)
+{
+    for(unsigned char indx = 0 ; indx < numSubsystems; indx++)
+    {
+        _initializeSubsystems(indx);
+    }
+}

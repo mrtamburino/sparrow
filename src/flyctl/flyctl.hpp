@@ -14,7 +14,6 @@
 #ifndef FLYCTL_HPP
 #define FLYCTL_HPP
 
-#include "../hal/hal.hpp"
 #include "fclog.hpp"
 #include "../../../composite/src/exceptions/excps.hpp"
 
@@ -23,6 +22,7 @@ namespace sfa
     
     DEFINE_APP_EXCEPTION(InitializeException, "Subsystems initialization error!");
     
+    typedef enum {boardctrl, motorsctrl, instumentsctrl, flyassistant, numSubsystems} subsystems_t;
     typedef enum { quadricopter=4, esocopter=6, octocopter=8 } multirotor_t;
     typedef double motor_power_t;
  
@@ -62,19 +62,15 @@ namespace sfa
         System_i(const multirotor_t eMoltirotor_IN):_eMotorsNum(eMoltirotor_IN){}
         virtual ~System_i(){}
         
-        virtual void initializeSubsystems(void);
+        virtual void initializeSubsystems(void) = 0;
         virtual void shutDownSubsystems(void) = 0;
         
         virtual FlyAssistant* getFlyAssistant(void) = 0;
-        virtual MotorCtrl* getMotorCtrl(unsigned char)=0;
+        virtual MotorCtrl* getMotorCtrl(unsigned char) = 0;
         
     protected:
         multirotor_t _eMotorsNum;
-        
-        virtual void _initBoardCtrl(void) = 0;
-        virtual void _initMotorsCtrl(void) = 0;
-        virtual void _initInstrumentsCtrl(void) = 0;
-        virtual void _initFlyAssistant(void) = 0;
+
     };
     
 }

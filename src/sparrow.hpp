@@ -21,6 +21,7 @@
 namespace sfa
 {
     
+    //enum subsystems{boardctrl, motorsctrl, instumentsctrl, flyassistant, numSubsystems};
     enum instruments{ accelerometer=0, gyroscope, instrumentsNum};
     
     class SparrowFlyAssistant: public FlyAssistant 
@@ -45,6 +46,7 @@ namespace sfa
         Sparrow(const multirotor_t eMoltirotor_IN);
         virtual ~Sparrow();
         
+        virtual void initializeSubsystems(void);
         virtual void shutDownSubsystems(void);
         virtual FlyAssistant* getFlyAssistant(void){return _ptrFlyAssistant;}
         virtual MotorCtrl* getMotorCtrl(unsigned char ucIndx_IN)
@@ -59,14 +61,13 @@ namespace sfa
         virtual void _initInstrumentsCtrl(void);
         virtual void _initFlyAssistant(void);
         
-        
-        
     private:
         hal::BoardCtrl* _ptrBoardCtrl;
         MotorCtrl**      _ptrMotorsCtrl;
         InstrumentCtrl** _ptrInstrumnentsCtrl;
         FlyAssistant*   _ptrFlyAssistant;
         
+        void _initializeSubsystems(unsigned char);
         void _initInstAccelerometer(void);
         void _initInstGyroscope(void);
     };

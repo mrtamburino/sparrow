@@ -1,4 +1,4 @@
-PROJECT_HOME=/home/ale/workspace/Projects/sparrow
+PROJECT_HOME=$(HOME)/workspace/Projects/sparrow
 
 #Target: bebug, release
 BIN_TARGET=debug

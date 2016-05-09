@@ -16,7 +16,7 @@ int main(void)
   sfa::FlyAssistant* fa = sparrow.getFlyAssistant ();
   
   sfa::MotorCtrl* m0_ctrl = sparrow.getMotorCtrl (0);
-  m0_ctrl << 25.0;
+  //m0_ctrl << 25.0;
   
   
   return 0;
