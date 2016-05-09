@@ -39,12 +39,12 @@ namespace sfa
         
     };
     
-    class Sparrow: public SystemMgr
+    class SparrowFlyMgr: public SystemMgr
     {
     public:
         
-        Sparrow(const multirotor_t eMoltirotor_IN);
-        virtual ~Sparrow();
+        SparrowFlyMgr(const multirotor_t eMoltirotor_IN);
+        virtual ~SparrowFlyMgr();
         
         /*! Start and stop functions
          * 

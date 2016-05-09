@@ -15,6 +15,7 @@
 #define HDCTRL_HPP
 
 #include "flyctl/fclog.hpp"
+#include "hal/hal.hpp"
 
 namespace sfa
 {
@@ -27,9 +28,14 @@ namespace sfa
         }
         virtual ~BLDCCtrl(){}
 
-        void operator<<(MotorCtrl& refMotor_IN, const motor_power_t gPower_IN)
+        void setPower(const motor_power_t dPower_IN)
         {
-             ((BLDCCtrl)refMotor_IN)._ptrPWMCtrl->setDutyCycle (gPower_IN);
+             _ptrPWMCtrl->setDutyCycle (dPower_IN);
+        }
+        
+        void setPWMFrequency(const motor_power_t dFreq_IN)
+        {
+            _ptrPWMCtrl->setFrequence (dFreq_IN);
         }
         
     protected:

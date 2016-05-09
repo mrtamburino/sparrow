@@ -9,15 +9,14 @@
 int main(void)
 {
   
-  sfa::Sparrow sparrow(sfa::quadricopter);
+  sfa::SparrowFlyMgr sparrow(sfa::quadricopter);
   
   sparrow.initializeSubsystems ();
   
-  //sfa::FlyAssistant* fa = sparrow.getFlyAssistant ();
-  
   sfa::MotorCtrl* m0_ctrl = sparrow.getMotorCtrl (0);
-  m0_ctrl << 25.0;
   
+  //m0_ctrl->setPower(25.0);
+  //m0_ctrl->powerOff();
   
   return 0;
 }

@@ -33,7 +33,9 @@ namespace sfa
         MotorCtrl(void):_fPower(0){}
         virtual ~MotorCtrl(){}
 
-        virtual void operator<<(MotorCtrl&, const motor_power_t)=0;
+        virtual void setPower(const motor_power_t)=0;
+        
+        void powerOff(void){setPower(0);}
         
     protected:
         motor_power_t _fPower;
@@ -52,7 +54,8 @@ namespace sfa
     class FlyAssistant
     {
     public:
-        //virtual void getInitialPosition(void);
+        FlyAssistant(){}
+        virtual ~FlyAssistant(){}
     };
     
     class SystemMgr

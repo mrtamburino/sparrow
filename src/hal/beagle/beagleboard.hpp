@@ -23,6 +23,9 @@ namespace hal
     class BeagleBoardCtrl: public BoardCtrl
     {
     public:
+        BeagleBoardCtrl(){}
+        ~BeagleBoardCtrl(){}
+
         virtual PWM* getPWMCtrl(const unsigned char);
         virtual I2CMaster* getI2CMasterChannelCtrl(const unsigned char);
     };
