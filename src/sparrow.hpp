@@ -17,27 +17,15 @@
 #include "flyctl/flyctl.hpp"
 #include "hal/hal.hpp"
 #include "spwlog.hpp"
+#include "spwflymgr.hpp"
 
 namespace sfa
 {
     
+    DEFINE_APP_EXCEPTION(InitializeException, "Subsystems initialization error!");
+    
     //enum subsystems{boardctrl, motorsctrl, instumentsctrl, flyassistant, numSubsystems};
     enum instruments{ accelerometer=0, gyroscope, instrumentsNum};
-    
-    class SparrowFlyAssistant: public FlyAssistant 
-    {
-    public:
-        SparrowFlyAssistant()
-        {
-            spwIMLOG(SPARROW_SUBMODULE_FLYASSISTAN, "Initializing Fly Assistant\n");
-        }
-        virtual ~SparrowFlyAssistant()
-        {
-            spwIMLOG(SPARROW_SUBMODULE_FLYASSISTAN, "Shut down Fly Assistant\n");
-        }
-
-        
-    };
     
     class SparrowFlyMgr: public SystemMgr
     {

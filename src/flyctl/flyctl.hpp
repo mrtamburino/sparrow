@@ -20,8 +20,6 @@
 namespace sfa
 {
     
-    DEFINE_APP_EXCEPTION(InitializeException, "Subsystems initialization error!");
-    
     typedef enum {boardctrl, motorsctrl, instumentsctrl, flyassistant, numSubsystems} subsystems_t;
     typedef enum { quadricopter=4, esocopter=6, octocopter=8 } multirotor_t;
     typedef double motor_power_t;
@@ -56,6 +54,8 @@ namespace sfa
     public:
         FlyAssistant(){}
         virtual ~FlyAssistant(){}
+        
+        virtual void up(double) = 0;
     };
     
     class SystemMgr

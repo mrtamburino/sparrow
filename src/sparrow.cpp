@@ -161,14 +161,14 @@ void SparrowFlyMgr::_initializeSubsystems(unsigned char eSubSystem_IN)
             break;
             
         default:
-            spwWLOG( "Not valid controller: %d\n", eSubSystem_IN);
+            spwWLOG( "Not valid subsystem: %d\n", eSubSystem_IN);
             break;
     }
 }
 
 void SparrowFlyMgr::initializeSubsystems(void)
 {
-    spwILOG( "Init Sparrow subsystems\n");
+    spwILOG( "Initializing Sparrow subsystems\n");
     try
     {
         for(unsigned char indx = 0 ; indx < numSubsystems; indx++)
@@ -184,4 +184,5 @@ void SparrowFlyMgr::initializeSubsystems(void)
     {
       THROW_EXCEPTION(InitializeException);
     }
+    spwILOG( "Subsystems initialized!\n");
 }
