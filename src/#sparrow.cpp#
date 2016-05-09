@@ -1,0 +1,102 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+#include "spwlog.hpp"
+#include "sparrow.hpp"
+#include "stdlib.h"
+
+using namespace sfa;
+
+Sparrow::Sparrow (const multirotor_t eMoltirotor_IN):
+   System_i(eMoltirotor_IN),
+   _ptrBoardCtrl(NULL),
+   _ptrMotorsCtrl(NULL),
+   _ptrInstrumnentsCtrl(NULL),
+   _ptrFlyAssistant(NULL)
+{
+//  spwIMLOG( "Initialize Sparrow: %d rotors\n", eMoltirotor_IN);
+}
+
+Sparrow::~Sparrow ()
+{
+  shutDownSubsystems();
+}
+
+void Sparrow::_initBoardCtrl()
+{
+s
+  spwIMLOG( SPARROW_SUBMODULE_BOARDCTRL, "Initializing Board Controller\n");
+  _ptrBoardCtrl = hal::getBoardCtrl ();
+}
+
+void Sparrow::_initMotorsCtrl()
+{
+  spwIMLOG(SPARROW_SUBMODULE_MOTORCTRL, "Initializing Motors Controller\n");
+
+  hal::PWM* pwm = NULL;
+  BLDCCtrl* motor = NULL;
+  _ptrMotorsCtrl = new MotorCtrl*[_eMotorsNum];
+  
+  for(unsigned char indx = 0; indx < _eMotorsNum; indx++)
+    {
+      spwIMLOG(SPARROW_SUBMODULE_MOTORCTRL, "Initializing Motor %d\n", indx);
+      pwm = _ptrBoardCtrl->getPWMCtrl (indx);
+      motor = new BLDCCtrl(pwm);
+      _ptrMotorsCtrl[indx] = motor;
+    }
+}
+
+void Sparrow::_initInstrumentsCtrl()
+{
+  //spwILOG("Initializing Instrument Controller\n");
+}
+
+void Sparrow::_initFlyAssistant()
+{
+  spwIMLOG(SPARROW_SUBMODULE_FLYASSISTAN, "Initializing Fly Assistant\n");
+  
+  _ptrFlyAssistant = new SparrowFlyAssistant();
+}
+
+void Sparrow::shutDownSubsystems (void)
+{
+  spwILOG("Shut down subsystems\n");
+  
+  if(_ptrFlyAssistant)
+    {
+      spwIMLOG(SPARROW_SUBMODULE_FLYASSISTAN, "Shut down Fly Assistant\n");
+      delete _ptrFlyAssistant;
+      _ptrFlyAssistant = NULL;
+    }
+  
+  if(_ptrInstrumnentsCtrl)
+    {
+      delete _ptrInstrumnentsCtrl;
+      _ptrInstrumnentsCtrl = NULL;
+    }
+  
+  if(_ptrMotorsCtrl)
+    {
+      spwIMLOG(SPARROW_SUBMODULE_MOTORCTRL, "Shut down Motors Controller\n");
+      for(unsigned char indx=0; indx < _eMotorsNum; indx++)
+        {
+          if(_ptrMotorsCtrl[indx])
+            {
+              spwIMLOG(SPARROW_SUBMODULE_MOTORCTRL, "Shut down Motor %d\n", indx);
+              delete _ptrMotorsCtrl[indx];
+              _ptrMotorsCtrl[indx] = NULL;
+            }
+        }
+      
+      delete _ptrMotorsCtrl;
+    }
+  
+  if(_ptrBoardCtrl)
+    {
+      spwIMLOG( SPARROW_SUBMODULE_BOARDCTRL, "Shut down Board Controller\n");
+      hal::destroyBoardCtrl (&_ptrBoardCtrl);
+    }
+}

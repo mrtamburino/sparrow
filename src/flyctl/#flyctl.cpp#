@@ -1,0 +1,27 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+#include "flyctl.hpp"
+#include "fclog.hpp"
+
+using namespace sfa;
+
+void BLDCCtrl::operator << (const motor_power_t gPower_IN)
+{
+  _ptrPWM->setDutyCycle (gPower_IN);
+}
+
+void System_i::initializeSubsystems(void)
+{
+  
+  fcILOG("Initializing subsystems\n");
+          
+  _initBoardCtrl ();
+  _initMotorsCtrl ();
+  _initInstrumentsCtrl ();
+  _initFlyAssistant ();
+  
+}
