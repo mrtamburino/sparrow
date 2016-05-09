@@ -57,7 +57,8 @@ namespace sfa
         
         virtual void up(double) = 0;
     };
-    
+  
+    /*
     class SystemMgr
     {
     public:
@@ -75,6 +76,7 @@ namespace sfa
         multirotor_t _eMotorsNum;
 
     };
+    */
     
 }
 

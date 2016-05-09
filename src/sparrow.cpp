@@ -11,9 +11,11 @@
 
 using namespace sfa;
 
+SparrowVehicleMgr SparrowVehicleMgr::sparrowMgr;
 
-SparrowFlyMgr::SparrowFlyMgr (const multirotor_t eMoltirotor_IN):
-   SystemMgr(eMoltirotor_IN),
+/*
+SparrowVehicleMgr::SparrowVehicleMgr (const multirotor_t eMoltirotor_IN):
+   _eMotorsNum(eMoltirotor_IN),
    _ptrBoardCtrl(NULL),
    _ptrMotorsCtrl(NULL),
    _ptrInstrumnentsCtrl(NULL),
@@ -21,18 +23,19 @@ SparrowFlyMgr::SparrowFlyMgr (const multirotor_t eMoltirotor_IN):
 {
 //  spwIMLOG( "Initialize Sparrow: %d rotors\n", eMoltirotor_IN);
 }
+ * */
 
-SparrowFlyMgr::~SparrowFlyMgr ()
+SparrowVehicleMgr::~SparrowVehicleMgr ()
 {
   shutDownSubsystems();
 }
 
-void SparrowFlyMgr::_initBoardCtrl()
+void SparrowVehicleMgr::_initBoardCtrl()
 {
   _ptrBoardCtrl = hal::getBoardCtrl ();
 }
 
-void SparrowFlyMgr::_initMotorsCtrl()
+void SparrowVehicleMgr::_initMotorsCtrl()
 {
   spwIMLOG(SPARROW_SUBMODULE_MOTORCTRL, "Initializing %d Motors Controller\n", _eMotorsNum);
 
@@ -47,21 +50,21 @@ void SparrowFlyMgr::_initMotorsCtrl()
     }
 }
 
-void SparrowFlyMgr::_initInstAccelerometer(void)
+void SparrowVehicleMgr::_initInstAccelerometer(void)
 {
   _ptrInstrumnentsCtrl[accelerometer] = 
           new AccelerometerCtrl( 
              _ptrBoardCtrl->getI2CMasterChannelCtrl (accelerometer) );
 }
 
-void SparrowFlyMgr::_initInstGyroscope(void)
+void SparrowVehicleMgr::_initInstGyroscope(void)
 {
   _ptrInstrumnentsCtrl[gyroscope] = 
           new GyroscopeCtrl( 
              _ptrBoardCtrl->getI2CMasterChannelCtrl (gyroscope) );
 }
 
-void SparrowFlyMgr::_initInstrumentsCtrl()
+void SparrowVehicleMgr::_initInstrumentsCtrl()
 {
   
   if(!instrumentsNum)
@@ -87,12 +90,12 @@ void SparrowFlyMgr::_initInstrumentsCtrl()
   
 }
 
-void SparrowFlyMgr::_initFlyAssistant()
+void SparrowVehicleMgr::_initFlyAssistant()
 {
   _ptrFlyAssistant = new SparrowFlyAssistant();
 }
 
-void SparrowFlyMgr::shutDownSubsystems (void)
+void SparrowVehicleMgr::shutDownSubsystems (void)
 {
   spwILOG("Shut down subsystems\n");
   
@@ -140,7 +143,7 @@ void SparrowFlyMgr::shutDownSubsystems (void)
     }
 }
 
-void SparrowFlyMgr::_initializeSubsystems(unsigned char eSubSystem_IN)
+void SparrowVehicleMgr::_initializeSubsystems(unsigned char eSubSystem_IN)
 {
     switch(eSubSystem_IN)
     {
@@ -166,14 +169,15 @@ void SparrowFlyMgr::_initializeSubsystems(unsigned char eSubSystem_IN)
     }
 }
 
-void SparrowFlyMgr::initializeSubsystems(void)
+void SparrowVehicleMgr::initializeSubsystems(multirotor_t eMultirotors_IN)
 {
     spwILOG( "Initializing Sparrow subsystems\n");
     try
     {
+        sparrowMgr._eMotorsNum = eMultirotors_IN;
         for(unsigned char indx = 0 ; indx < numSubsystems; indx++)
         {
-            _initializeSubsystems(indx);
+            sparrowMgr._initializeSubsystems(indx);
         }
     }
     catch(composite::excps::GenericException* ge)

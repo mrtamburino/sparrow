@@ -23,28 +23,33 @@ namespace sfa
 {
     
     DEFINE_APP_EXCEPTION(InitializeException, "Subsystems initialization error!");
-    
-    //enum subsystems{boardctrl, motorsctrl, instumentsctrl, flyassistant, numSubsystems};
+
     enum instruments{ accelerometer=0, gyroscope, instrumentsNum};
+
     
-    class SparrowFlyMgr: public SystemMgr
+    class SparrowVehicleMgr
     {
     public:
-        
-        SparrowFlyMgr(const multirotor_t eMoltirotor_IN);
-        virtual ~SparrowFlyMgr();
+        SparrowVehicleMgr(void):_eMotorsNum(0),
+                                _ptrBoardCtrl(NULL),
+                                _ptrMotorsCtrl(NULL),
+                                _ptrInstrumnentsCtrl(NULL),
+                                _ptrFlyAssistant(NULL){}
+       // SparrowVehicleMgr(const multirotor_t eMoltirotor_IN);
+        virtual ~SparrowVehicleMgr();
         
         /*! Start and stop functions
          * 
          */
-        virtual void initializeSubsystems(void);
+        static void initializeSubsystems(multirotor_t);
         virtual void shutDownSubsystems(void);
         
         virtual FlyAssistant* getFlyAssistant(void){return _ptrFlyAssistant;}
-        virtual MotorCtrl* getMotorCtrl(unsigned char ucIndx_IN)
-        {return (_ptrMotorsCtrl && ucIndx_IN<_eMotorsNum ? 
-            _ptrMotorsCtrl[ucIndx_IN]:
+        static MotorCtrl* getMotorCtrl(unsigned char ucIndx_IN)
+        {return (sparrowMgr._ptrMotorsCtrl && ucIndx_IN<sparrowMgr._eMotorsNum ? 
+            sparrowMgr._ptrMotorsCtrl[ucIndx_IN]:
             NULL);}
+
         
     protected:
         
@@ -54,6 +59,10 @@ namespace sfa
         virtual void _initFlyAssistant(void);
         
     private:
+        
+        static SparrowVehicleMgr sparrowMgr;
+        
+        unsigned char _eMotorsNum;
         hal::BoardCtrl* _ptrBoardCtrl;
         MotorCtrl**      _ptrMotorsCtrl;
         InstrumentCtrl** _ptrInstrumnentsCtrl;
