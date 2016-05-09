@@ -26,7 +26,7 @@ namespace sfa
 
     enum instruments{ accelerometer=0, gyroscope, instrumentsNum};
 
-    
+   
     class SparrowVehicleMgr
     {
     public:
@@ -41,14 +41,14 @@ namespace sfa
         /*! Start and stop functions
          * 
          */
-        static void initializeSubsystems(multirotor_t);
+        //static void initializeSubsystems(multirotor_t);
         virtual void shutDownSubsystems(void);
         
         virtual FlyAssistant* getFlyAssistant(void){return _ptrFlyAssistant;}
-        static MotorCtrl* getMotorCtrl(unsigned char ucIndx_IN)
-        {return (sparrowMgr._ptrMotorsCtrl && ucIndx_IN<sparrowMgr._eMotorsNum ? 
-            sparrowMgr._ptrMotorsCtrl[ucIndx_IN]:
-            NULL);}
+        //static MotorCtrl* getMotorCtrl(unsigned char ucIndx_IN)
+        //{return (sparrowMgr._ptrMotorsCtrl && ucIndx_IN<sparrowMgr._eMotorsNum ? 
+        //    sparrowMgr._ptrMotorsCtrl[ucIndx_IN]:
+        //    NULL);}
 
         
     protected:
@@ -59,9 +59,7 @@ namespace sfa
         virtual void _initFlyAssistant(void);
         
     private:
-        
-        static SparrowVehicleMgr sparrowMgr;
-        
+
         unsigned char _eMotorsNum;
         hal::BoardCtrl* _ptrBoardCtrl;
         MotorCtrl**      _ptrMotorsCtrl;
@@ -71,6 +69,23 @@ namespace sfa
         void _initializeSubsystems(unsigned char);
         void _initInstAccelerometer(void);
         void _initInstGyroscope(void);
+        
+        friend class SparrowMgr;
+    };
+    
+    
+    class SparrowMgr
+    {
+        public:
+            static SparrowVehicleMgr sparrowMgr;
+            
+            static void initializeSubsystems(multirotor_t);
+            static MotorCtrl* getMotorCtrl(unsigned char ucIndx_IN)
+            {
+                return (sparrowMgr._ptrMotorsCtrl && ucIndx_IN<sparrowMgr._eMotorsNum ? 
+                    sparrowMgr._ptrMotorsCtrl[ucIndx_IN]:
+                    NULL);
+            }
     };
 
     

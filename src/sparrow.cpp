@@ -11,7 +11,7 @@
 
 using namespace sfa;
 
-SparrowVehicleMgr SparrowVehicleMgr::sparrowMgr;
+SparrowVehicleMgr SparrowMgr::sparrowMgr;
 
 /*
 SparrowVehicleMgr::SparrowVehicleMgr (const multirotor_t eMoltirotor_IN):
@@ -169,9 +169,10 @@ void SparrowVehicleMgr::_initializeSubsystems(unsigned char eSubSystem_IN)
     }
 }
 
-void SparrowVehicleMgr::initializeSubsystems(multirotor_t eMultirotors_IN)
+void SparrowMgr::initializeSubsystems(multirotor_t eMultirotors_IN)
 {
     spwILOG( "Initializing Sparrow subsystems\n");
+    
     try
     {
         sparrowMgr._eMotorsNum = eMultirotors_IN;
@@ -189,4 +190,5 @@ void SparrowVehicleMgr::initializeSubsystems(multirotor_t eMultirotors_IN)
       THROW_EXCEPTION(InitializeException);
     }
     spwILOG( "Subsystems initialized!\n");
+    
 }

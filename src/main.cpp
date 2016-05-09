@@ -9,9 +9,11 @@
 int main(void)
 {
 
-    sfa::SparrowVehicleMgr::initializeSubsystems(sfa::quadricopter);
+    sfa::SparrowMgr::initializeSubsystems(sfa::quadricopter);
     
-    sfa::MotorCtrl* m0_ctrl = sfa::SparrowVehicleMgr::getMotorCtrl(0);
+    sfa::MotorCtrl* m0_ctrl = sfa::SparrowMgr::getMotorCtrl(0);
+    
+//    sfa::MotorCtrl* m0_ctrl = sfa::SparrowVehicleMgr::getMotorCtrl(0);
     
    /*
   sfa::SparrowVehicleMgr sparrow(sfa::quadricopter);
