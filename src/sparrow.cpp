@@ -13,7 +13,7 @@ using namespace sfa;
 
 
 Sparrow::Sparrow (const multirotor_t eMoltirotor_IN):
-   System_i(eMoltirotor_IN),
+   SystemMgr(eMoltirotor_IN),
    _ptrBoardCtrl(NULL),
    _ptrMotorsCtrl(NULL),
    _ptrInstrumnentsCtrl(NULL),

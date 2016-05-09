@@ -27,9 +27,9 @@ namespace sfa
         }
         virtual ~BLDCCtrl(){}
 
-        void operator<<(const motor_power_t gPower_IN)
+        void operator<<(MotorCtrl& refMotor_IN, const motor_power_t gPower_IN)
         {
-             _ptrPWMCtrl->setDutyCycle (gPower_IN);
+             ((BLDCCtrl)refMotor_IN)._ptrPWMCtrl->setDutyCycle (gPower_IN);
         }
         
     protected:

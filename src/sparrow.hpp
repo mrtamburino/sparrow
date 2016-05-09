@@ -39,15 +39,19 @@ namespace sfa
         
     };
     
-    class Sparrow: public System_i
+    class Sparrow: public SystemMgr
     {
     public:
         
         Sparrow(const multirotor_t eMoltirotor_IN);
         virtual ~Sparrow();
         
+        /*! Start and stop functions
+         * 
+         */
         virtual void initializeSubsystems(void);
         virtual void shutDownSubsystems(void);
+        
         virtual FlyAssistant* getFlyAssistant(void){return _ptrFlyAssistant;}
         virtual MotorCtrl* getMotorCtrl(unsigned char ucIndx_IN)
         {return (_ptrMotorsCtrl && ucIndx_IN<_eMotorsNum ? 

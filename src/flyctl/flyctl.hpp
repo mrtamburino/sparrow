@@ -33,7 +33,7 @@ namespace sfa
         MotorCtrl(void):_fPower(0){}
         virtual ~MotorCtrl(){}
 
-        virtual void operator<<(const motor_power_t gPower_IN)=0;
+        virtual void operator<<(MotorCtrl&, const motor_power_t)=0;
         
     protected:
         motor_power_t _fPower;
@@ -55,12 +55,12 @@ namespace sfa
         //virtual void getInitialPosition(void);
     };
     
-    class System_i
+    class SystemMgr
     {
     public:
         
-        System_i(const multirotor_t eMoltirotor_IN):_eMotorsNum(eMoltirotor_IN){}
-        virtual ~System_i(){}
+        SystemMgr(const multirotor_t eMoltirotor_IN):_eMotorsNum(eMoltirotor_IN){}
+        virtual ~SystemMgr(){}
         
         virtual void initializeSubsystems(void) = 0;
         virtual void shutDownSubsystems(void) = 0;
