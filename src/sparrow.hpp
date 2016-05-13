@@ -15,11 +15,12 @@
 #define SPARROW_HPP
 
 #include "flyctl/flyctl.hpp"
+#include "vehiclemgr.hpp"
 
 namespace sparrow
 {
     
-    class SparrowVehicleMgr;
+    class SparrowMgr;
     
     DEFINE_APP_EXCEPTION(InitializeException, "Subsystems initialization error!");
 
@@ -27,11 +28,12 @@ namespace sparrow
     class VehicleFactory
     {
         public:
-            static SparrowVehicleMgr vehicleMgr;
-            
             static void initSystemsFor(sfa::multirotor_t);
-            static sfa::MotorCtrl* getMotorCtrl(unsigned char);
-            static sfa::FlyAssistant* getFlyAssistant(void);
+            static VehicleMgr* getVehicleMgr(void);
+            
+        private:
+            static SparrowMgr sparrowMgr;
+
     };
 
     

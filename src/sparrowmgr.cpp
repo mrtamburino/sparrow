@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-#include "vehiclemgr.hpp"
+#include "sparrowmgr.hpp"
 #include "spwlog.hpp"
 #include "hdctrl.hpp"
 #include "flyasnt.hpp"
@@ -24,17 +24,17 @@ SparrowVehicleMgr::SparrowVehicleMgr (const multirotor_t eMoltirotor_IN):
 }
  * */
 
-SparrowVehicleMgr::~SparrowVehicleMgr ()
+SparrowMgr::~SparrowMgr ()
 {
-  shutDownSubsystems();
+  _shutDownSubsystems();
 }
 
-void SparrowVehicleMgr::_initBoardCtrl()
+void SparrowMgr::_initBoardCtrl()
 {
   _ptrBoardCtrl = hal::getBoardCtrl ();
 }
 
-void SparrowVehicleMgr::_initMotorsCtrl()
+void SparrowMgr::_initMotorsCtrl()
 {
   spwIMLOG(SPARROW_SUBMODULE_MOTORCTRL, "Initializing %d Motors Controller\n", _eMotorsNum);
 
@@ -49,21 +49,21 @@ void SparrowVehicleMgr::_initMotorsCtrl()
     }
 }
 
-void SparrowVehicleMgr::_initInstAccelerometer(void)
+void SparrowMgr::_initInstAccelerometer(void)
 {
   _ptrInstrumnentsCtrl[accelerometer] = 
           new AccelerometerCtrl( 
              _ptrBoardCtrl->getI2CMasterChannelCtrl (accelerometer) );
 }
 
-void SparrowVehicleMgr::_initInstGyroscope(void)
+void SparrowMgr::_initInstGyroscope(void)
 {
   _ptrInstrumnentsCtrl[gyroscope] = 
           new GyroscopeCtrl( 
              _ptrBoardCtrl->getI2CMasterChannelCtrl (gyroscope) );
 }
 
-void SparrowVehicleMgr::_initInstrumentsCtrl()
+void SparrowMgr::_initInstrumentsCtrl()
 {
   
   if(!instrumentsNum)
@@ -89,12 +89,12 @@ void SparrowVehicleMgr::_initInstrumentsCtrl()
   
 }
 
-void SparrowVehicleMgr::_initFlyAssistant()
+void SparrowMgr::_initFlyAssistant()
 {
   _ptrFlyAssistant = new SparrowFlyAssistant();
 }
 
-void SparrowVehicleMgr::shutDownSubsystems (void)
+void SparrowMgr::_shutDownSubsystems (void)
 {
   spwILOG("Shut down subsystems\n");
   
@@ -142,7 +142,7 @@ void SparrowVehicleMgr::shutDownSubsystems (void)
     }
 }
 
-void SparrowVehicleMgr::_initializeSubsystems(unsigned char eSubSystem_IN)
+void SparrowMgr::_initializeSubsystems(unsigned char eSubSystem_IN)
 {
     switch(eSubSystem_IN)
     {
