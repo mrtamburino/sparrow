@@ -16,10 +16,10 @@
 
 #include "spwlog.hpp"
 
-namespace sfa
+namespace sparrow
 {
     
-    class SparrowFlyAssistant: public FlyAssistant 
+    class SparrowFlyAssistant: public sfa::FlyAssistant 
     {
     public:
         SparrowFlyAssistant()

@@ -16,24 +16,25 @@
 
 #include "flyctl/fclog.hpp"
 #include "hal/hal.hpp"
+#include "spwlog.hpp"
 
-namespace sfa
+namespace sparrow
 {
-    class BLDCCtrl: public MotorCtrl
+    class BLDCCtrl: public sfa::MotorCtrl
     {
     public:
-        BLDCCtrl(hal::PWM* ptrPWN_IN):MotorCtrl(),_ptrPWMCtrl(ptrPWN_IN)
+        BLDCCtrl(hal::PWM* ptrPWN_IN):sfa::MotorCtrl(),_ptrPWMCtrl(ptrPWN_IN)
         {
             spwIMLOG(SPARROW_SUBMODULE_MOTORCTRL, "Initializing BLDC Motor controller\n");
         }
         virtual ~BLDCCtrl(){}
 
-        void setPower(const motor_power_t dPower_IN)
+        void setPower(const sfa::motor_power_t dPower_IN)
         {
              _ptrPWMCtrl->setDutyCycle (dPower_IN);
         }
         
-        void setPWMFrequency(const motor_power_t dFreq_IN)
+        void setPWMFrequency(const sfa::motor_power_t dFreq_IN)
         {
             _ptrPWMCtrl->setFrequence (dFreq_IN);
         }
@@ -42,7 +43,7 @@ namespace sfa
         hal::PWM* _ptrPWMCtrl;
     };
     
-    class I2CInstrumentCtrl: public InstrumentCtrl
+    class I2CInstrumentCtrl: public sfa::InstrumentCtrl
     {
     public:
         I2CInstrumentCtrl(hal::I2CMaster* prtrI2CMaterCtrl_IN):_ptrI2CMaterCtrl(prtrI2CMaterCtrl_IN){}

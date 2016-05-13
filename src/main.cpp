@@ -9,21 +9,13 @@
 int main(void)
 {
 
-    sfa::SparrowMgr::initializeSubsystems(sfa::quadricopter);
+    sparrow::VehicleFactory::initSystemsFor(sfa::quadricopter);
     
-    sfa::MotorCtrl* m0_ctrl = sfa::SparrowMgr::getMotorCtrl(0);
+    sfa::MotorCtrl* m0_gtrl = sparrow::VehicleFactory::getMotorCtrl(0);
     
-//    sfa::MotorCtrl* m0_ctrl = sfa::SparrowVehicleMgr::getMotorCtrl(0);
+    sfa::FlyAssistant* flyAssistant = sparrow::VehicleFactory::getFlyAssistant();
     
-   /*
-  sfa::SparrowVehicleMgr sparrow(sfa::quadricopter);
-  
-  sparrow.initializeSubsystems ();
-  
-  sfa::MotorCtrl* m0_ctrl = sparrow.getMotorCtrl (0);
-  */
-  //m0_ctrl->setPower(25.0);
-  //m0_ctrl->powerOff();
+    //flyAssistant->up(10);
   
   return 0;
 }

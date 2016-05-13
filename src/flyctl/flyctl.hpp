@@ -57,26 +57,7 @@ namespace sfa
         
         virtual void up(double) = 0;
     };
-  
-    /*
-    class SystemMgr
-    {
-    public:
-        
-        SystemMgr(const multirotor_t eMoltirotor_IN):_eMotorsNum(eMoltirotor_IN){}
-        virtual ~SystemMgr(){}
-        
-        virtual void initializeSubsystems(void) = 0;
-        virtual void shutDownSubsystems(void) = 0;
-        
-        virtual FlyAssistant* getFlyAssistant(void) = 0;
-        virtual MotorCtrl* getMotorCtrl(unsigned char) = 0;
-        
-    protected:
-        multirotor_t _eMotorsNum;
 
-    };
-    */
     
 }
 
