@@ -23,7 +23,7 @@ void VehicleFactory::initSystemsFor(sfa::multirotor_t eMultirotors_IN)
     try
     {
         sparrowMgr._eMotorsNum = eMultirotors_IN;
-        for(unsigned char indx = 0 ; indx < sfa::numSubsystems; indx++)
+        for(unsigned char indx = 0 ; indx < numSubsystems; indx++)
         {
             sparrowMgr._initializeSubsystems(indx);
         }

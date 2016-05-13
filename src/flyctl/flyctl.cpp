@@ -9,29 +9,3 @@
 
 
 using namespace sfa;
-
-/*
-void System_i::initializeSubsystems(void)
-{
-  
-  fcILOG("Initializing subsystems\n");
-  
-  try
-    {
-      _initBoardCtrl ();
-      _initMotorsCtrl ();
-      _initInstrumentsCtrl ();
-      _initFlyAssistant ();
-    }
-  catch(composite::excps::GenericException* ge)
-    {
-      WRAP_EXCEPTION(InitializeException,ge);
-    }
-  catch(...)
-    {
-      THROW_EXCEPTION(InitializeException);
-    }
-  
-  
-}
- */
