@@ -31,20 +31,13 @@ namespace sparrow
                                 _ptrMotorsCtrl(NULL),
                                 _ptrInstrumnentsCtrl(NULL),
                                 _ptrFlyAssistant(NULL){}
-       // SparrowVehicleMgr(const multirotor_t eMoltirotor_IN);
         virtual ~SparrowVehicleMgr();
         
         /*! Start and stop functions
          * 
          */
-        //static void initializeSubsystems(multirotor_t);
         virtual void shutDownSubsystems(void);
-        
         virtual sfa::FlyAssistant* getFlyAssistant(void){return _ptrFlyAssistant;}
-        //static MotorCtrl* getMotorCtrl(unsigned char ucIndx_IN)
-        //{return (sparrowMgr._ptrMotorsCtrl && ucIndx_IN<sparrowMgr._eMotorsNum ? 
-        //    sparrowMgr._ptrMotorsCtrl[ucIndx_IN]:
-        //    NULL);}
 
         
     protected:
