@@ -34,15 +34,18 @@ namespace sparrow
                                 _ptrFlyAssistant(NULL){}
         virtual ~SparrowMgr();
         
+        virtual void initSystem(unsigned char);
+        
         /*! Start and stop functions
          * 
          */
         virtual sfa::FlyAssistant* getFlyAssistant(void){return _ptrFlyAssistant;}
+       
 
         
     protected:
         
-        void _initializeSubsystems(unsigned char);
+        void _initSubsystem(unsigned char);
         void _shutDownSubsystems(void);
         
         

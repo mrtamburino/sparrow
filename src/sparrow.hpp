@@ -28,8 +28,8 @@ namespace sparrow
     class VehicleFactory
     {
         public:
-            static void initSystemsFor(sfa::multirotor_t);
-            static VehicleMgr* getVehicleMgr(void);
+            static VehicleMgr* initSystemsFor(sfa::multirotor_t);
+            //static VehicleMgr* getVehicleMgr(void);
             
         private:
             static SparrowMgr sparrowMgr;

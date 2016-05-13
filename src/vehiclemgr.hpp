@@ -21,6 +21,7 @@ namespace sparrow
     class VehicleMgr
     {
     public:
+        virtual void initSystem(unsigned char) = 0;
         virtual sfa::FlyAssistant* getFlyAssistant(void) = 0;
     };
 }

@@ -9,8 +9,10 @@
 int main(void)
 {
 
-    sparrow::VehicleFactory::initSystemsFor(sfa::quadricopter);
-    
+    sparrow::VehicleMgr* vehicle = sparrow::VehicleFactory::initSystemsFor(sfa::quadricopter);
+
+    vehicle->getFlyAssistant();
+            
 //    sfa::MotorCtrl* m0_ctrl = sparrow::VehicleFactory::getMotorCtrl(0);
     
 //    sfa::FlyAssistant* flyAssistant = sparrow::VehicleFactory::getFlyAssistant();

@@ -142,7 +142,22 @@ void SparrowMgr::_shutDownSubsystems (void)
     }
 }
 
-void SparrowMgr::_initializeSubsystems(unsigned char eSubSystem_IN)
+void SparrowMgr::initSystem(unsigned char ucMotors_IN)
+{
+    _eMotorsNum = ucMotors_IN;
+    
+    spwILOG( "Initializing Sparrow subsystems\n");
+    
+    for(unsigned char indx = 0 ; indx < sfa::numSubsystems; indx++)
+        {
+            _initSubsystem(indx);
+        }
+    
+    spwILOG( "Subsystems initialized\n");
+    
+}
+
+void SparrowMgr::_initSubsystem(unsigned char eSubSystem_IN)
 {
     switch(eSubSystem_IN)
     {
