@@ -15,6 +15,9 @@
 #define BEAGLEBOARD_HPP
 
 #include "../hal.hpp"
+#include "stdlib.h"
+
+#define BEAGLE_CONF_FILE "pippo"
 
 #define BEAGLE_SUBSYSTEM "beagleboard"
 
@@ -23,11 +26,26 @@ namespace hal
     class BeagleBoardCtrl: public BoardCtrl
     {
     public:
-        BeagleBoardCtrl(){}
+        BeagleBoardCtrl();
         ~BeagleBoardCtrl(){}
 
         virtual PWM* getPWMCtrl(const unsigned char);
         virtual I2CMaster* getI2CMasterChannelCtrl(const unsigned char);
+    };
+    
+    class BeagleBoneFactory
+    {
+    public:
+        BeagleBoneFactory():_ptrBBBController(NULL){}
+        ~BeagleBoneFactory();
+        
+        BeagleBoardCtrl* getBBBContoller(void);
+        
+    private:
+        BeagleBoardCtrl* _ptrBBBController;
+        
+        void loadConf(void);
+        
     };
 }
 
