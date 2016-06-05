@@ -10,6 +10,7 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
+#include "bbbproperties.hpp"
 
 /*! Beagle Board Controller singleton
  */
@@ -57,16 +58,48 @@ void hal::BBBPWMSignal::setFrequence(double)
 hal::BeagleBoardCtrl::BeagleBoardCtrl()
 {
   
-  halIMLOG(BEAGLE_SUBSYSTEM, "Initialize Beablebone Black controller\n");
+  halIMLOG(BEAGLE_SUBSYSTEM, "Initialize BeagleBone-Black controller\n");
+  
+  halWMLOG(BEAGLE_SUBSYSTEM, "Load the tree overlay and export the pin in user space before run the application\n");
+  
+  BBBProperties bbbProperties;
   
   char* sConfFile = getenv("BEAGLE_CONF_FILE");
   if(sConfFile)
     {
-      halIMLOG(BEAGLE_SUBSYSTEM, "Load configuration file: %s\n", sConfFile);
+      halIIMLOG(BEAGLE_SUBSYSTEM, "Load configuration from file: %s\n", sConfFile);
+      PropertiesFilesReader pfr;
+      pfr.load (sConfFile, &bbbProperties);
     }
   
   // Initialize the array of PWM controllers
-  memset(_aptrPWMSignals, 0, sizeof(_aptrPWMSignals));
+  memset( _aptrPWMSignals, 
+          0, 
+          e_pwmSignalsAvailable * sizeof(BBBPWMSignal*));
+  
+
+  char* sPropertyValue = NULL;
+  
+  sPropertyValue = bbbProperties.getProperty ("EHRPWMA0");
+  if(sPropertyValue)
+    {
+      _aptrPWMSignals[e_ehrpwm0a] = new BBBPWMSignal(sPropertyValue);
+    }
+  sPropertyValue = bbbProperties.getProperty ("EHRPWMA1");
+  if(sPropertyValue)
+    {
+      _aptrPWMSignals[e_ehrpwm0a] = new BBBPWMSignal(sPropertyValue);
+    }
+  sPropertyValue = bbbProperties.getProperty ("EHRPWMB0");
+  if(sPropertyValue)
+    {
+      _aptrPWMSignals[e_ehrpwm0a] = new BBBPWMSignal(sPropertyValue);
+    }
+  sPropertyValue = bbbProperties.getProperty ("EHRPWMB0");
+  if(sPropertyValue)
+    {
+      _aptrPWMSignals[e_ehrpwm0a] = new BBBPWMSignal(sPropertyValue);
+    }
 }
 
 hal::BeagleBoardCtrl::~BeagleBoardCtrl()

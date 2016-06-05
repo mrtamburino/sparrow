@@ -17,6 +17,7 @@
 #include "stdlib.h"
 #include "stdio.h"
 
+#define PREADER_SUB_MODULE          "PropertiesFilesReader"
 
 #define PREADER_BUFFER_SIZE         4096
 #define PREADER_TOKEN_SIZE          1024
@@ -38,17 +39,20 @@
 class PpropertiesStore
 {
 public:
-    virtual void setProperty(const char* sName_IN, const char* sValue_IN) = 0;
-    virtual const char* getProperty(const char* s_Name_IN) = 0;
+    virtual void setProperty(char* sName_IN, char* sValue_IN) = 0;
+    virtual char* getProperty(const char* s_Name_IN) = 0;
+    virtual unsigned char isEmpty(const char* s_Name_IN) = 0;
 };
 
 class PStoreTest: public PpropertiesStore
 {
-    void setProperty(const char* sName_IN, const char* sValue_IN)
+    void setProperty(char* sName_IN, char* sValue_IN)
     {
         printf("set property %s to %s\n", sName_IN, sValue_IN);
     }
-    const char* getProperty(const char* s_Name_IN){}
+    char* getProperty(const char* s_Name_IN){return NULL;}
+    unsigned char isEmpty(const char* s_Name_IN){return 1;}
+    
 };
 
 class PropertiesFilesReader

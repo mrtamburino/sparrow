@@ -15,21 +15,21 @@ PropertiesFilesReader::PropertiesFilesReader()
   if(!(_sBuffer = (char*)malloc(PREADER_BUFFER_SIZE * sizeof(char))))
     {
       _sBuffer = NULL;
-      ELOG("Not enough memory!\n");
+      EMLOG("", PREADER_SUB_MODULE, "Not enough memory!\n");
     }
   _sBuffer[0] = '\0';
   
   if(!(_sCurrentToken = (char*)malloc(PREADER_TOKEN_SIZE * sizeof(char))))
     {
       _sCurrentToken = NULL;
-      ELOG("Not enough memory!\n");
+      EMLOG("", PREADER_SUB_MODULE, "Not enough memory!\n");
     }
   _sCurrentToken[0] = '\0';
   
   if(!(_sValueToken = (char*)malloc(PREADER_TOKEN_SIZE * sizeof(char))))
     {
       _sValueToken = NULL;
-      ELOG("Not enough memory!\n");
+      EMLOG("", PREADER_SUB_MODULE, "Not enough memory!\n");
     }
   _sValueToken[0] = '\0';
   
@@ -139,7 +139,7 @@ void PropertiesFilesReader::parseBuffer(void)
     }
   else
     {
-      // ERROR
+      EMLOG("", PREADER_SUB_MODULE, "Wrong syntax\n");
     }
   
 }

@@ -29,6 +29,8 @@ namespace hal
     class BBBPWMSignal: public PWM
     {
     public:
+        BBBPWMSignal(char* sPath_IN){}
+        
         virtual void setDutyCycle(double);
         virtual void setFrequence(double);
     };
