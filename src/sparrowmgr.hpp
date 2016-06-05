@@ -15,6 +15,9 @@
 #define SPARROWMGR_HPP
 
 #include "stdlib.h"
+
+# include "../../composite/src/exceptions/excps.hpp"
+
 #include "flyctl/flyctl.hpp"
 #include "hal/hal.hpp"
 #include "vehiclemgr.hpp"
@@ -67,6 +70,9 @@ namespace sparrow
         
         friend class VehicleFactory;
     };
+    
+    // Exception definition
+    DEFINE_APP_EXCEPTION(FewPWMSignalsException, "Not enought PWM signals availabe!");
     
 }
 

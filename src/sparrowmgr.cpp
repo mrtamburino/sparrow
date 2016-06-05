@@ -32,6 +32,13 @@ SparrowMgr::~SparrowMgr ()
 void SparrowMgr::_initBoardCtrl()
 {
   _ptrBoardCtrl = hal::getBoardCtrl ();
+  
+  // Check: pwm signals available has to be equal or greater that number of motors
+  if ( _ptrBoardCtrl->countPWMSignalsUnclamed () < _eMotorsNum)
+    {
+      // ERROR
+      THROW_EXCEPTION(FewPWMSignalsException);
+    }
 }
 
 void SparrowMgr::_initMotorsCtrl()
@@ -148,7 +155,7 @@ void SparrowMgr::initSystem(unsigned char ucMotors_IN)
     
     spwILOG( "Initializing Sparrow subsystems\n");
     
-    for(unsigned char indx = 0 ; indx < sfa::numSubsystems; indx++)
+    for(unsigned char indx = 0 ; indx < sfa::e_numSubsystems; indx++)
         {
             _initSubsystem(indx);
         }
@@ -161,19 +168,19 @@ void SparrowMgr::_initSubsystem(unsigned char eSubSystem_IN)
 {
     switch(eSubSystem_IN)
     {
-        case sfa::boardctrl:
+        case sfa::e_boardctrl:
             _initBoardCtrl();
             break;
             
-        case sfa::motorsctrl:
+        case sfa::e_motorsctrl:
             _initMotorsCtrl();
             break;
             
-        case sfa::instumentsctrl:
+        case sfa::e_instumentsctrl:
             _initInstrumentsCtrl();
             break;
             
-        case sfa::flyassistant:
+        case sfa::e_flyassistant:
             _initFlyAssistant();
             break;
             

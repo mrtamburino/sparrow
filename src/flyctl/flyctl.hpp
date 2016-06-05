@@ -20,8 +20,8 @@
 namespace sfa
 {
     
-    typedef enum {boardctrl, motorsctrl, instumentsctrl, flyassistant, numSubsystems} subsystems_t;
-    typedef enum { quadricopter=4, esocopter=6, octocopter=8 } multirotor_t;
+    typedef enum {e_boardctrl, e_motorsctrl, e_instumentsctrl, e_flyassistant, e_numSubsystems} subsystems_t;
+    typedef enum { e_quadricopter=4, e_esocopter=6, e_octocopter=8 } multirotor_t;
     typedef double motor_power_t;
  
     

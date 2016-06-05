@@ -9,6 +9,7 @@
 #include "beagleboard.hpp"
 #include "stdlib.h"
 #include "stdio.h"
+#include "string.h"
 
 /*! Beagle Board Controller singleton
  */
@@ -30,6 +31,29 @@ void hal::destroyBoardCtrl(BoardCtrl** ptrBoardCtrl_IN)
 
 // --------------------------------------------------
 
+
+
+// --------------------------------------------------
+// --- BBB PWM
+// --------------------------------------------------
+
+void hal::BBBPWMSignal::setDutyCycle(double)
+{
+  
+}
+
+void hal::BBBPWMSignal::setFrequence(double)
+{
+  
+}
+
+
+// --------------------------------------------------
+// --- BBB
+// --------------------------------------------------
+
+
+
 hal::BeagleBoardCtrl::BeagleBoardCtrl()
 {
   
@@ -39,6 +63,20 @@ hal::BeagleBoardCtrl::BeagleBoardCtrl()
   if(sConfFile)
     {
       halIMLOG(BEAGLE_SUBSYSTEM, "Load configuration file: %s\n", sConfFile);
+    }
+  
+  // Initialize the array of PWM controllers
+  memset(_aptrPWMSignals, 0, sizeof(_aptrPWMSignals));
+}
+
+hal::BeagleBoardCtrl::~BeagleBoardCtrl()
+{
+  for(unsigned char indx = 0; indx < hal::e_pwmSignalsAvailable; indx++)
+    {
+      if(_aptrPWMSignals[indx])
+        {
+          delete _aptrPWMSignals[indx];
+        }
     }
 }
 
@@ -54,6 +92,25 @@ hal::I2CMaster* hal::BeagleBoardCtrl::getI2CMasterChannelCtrl(const unsigned cha
   return NULL;
 }
 
+unsigned char hal::BeagleBoardCtrl::countPWMSignalsUnclamed(void)
+{
+  unsigned char ucAmount = 0;
+  for(unsigned char indx = 0; indx < hal::e_pwmSignalsAvailable; indx++)
+    {
+      if(!_aptrPWMSignals[indx])
+        {
+          ucAmount++;
+          
+        }
+    }
+  return ucAmount;
+}
+
+
+// --------------------------------------------------
+// --- BBB Factory
+// --------------------------------------------------
+
 hal::BeagleBoardCtrl* hal::BeagleBoneFactory::getBBBContoller(void)
 {
   if(!_ptrBBBController)
@@ -68,3 +125,4 @@ hal::BeagleBoneFactory::~BeagleBoneFactory()
   if(_ptrBBBController)
     delete _ptrBBBController;
 }
+

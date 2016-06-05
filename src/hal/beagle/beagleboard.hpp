@@ -23,14 +23,29 @@
 
 namespace hal
 {
+    
+    typedef enum {e_ehrpwm0a=0, e_ehrpwm0b, e_ehrpwm1a, e_ehrpwm1b, e_ehrpwm2a, e_ehrpwm2b, e_pwmSignalsAvailable} pwm_signal_availables_t;
+    
+    class BBBPWMSignal: public PWM
+    {
+    public:
+        virtual void setDutyCycle(double);
+        virtual void setFrequence(double);
+    };
+    
     class BeagleBoardCtrl: public BoardCtrl
     {
     public:
         BeagleBoardCtrl();
-        ~BeagleBoardCtrl(){}
+        ~BeagleBoardCtrl();
 
+        virtual unsigned char countPWMSignalsUnclamed(void);
         virtual PWM* getPWMCtrl(const unsigned char);
         virtual I2CMaster* getI2CMasterChannelCtrl(const unsigned char);
+        
+    private:
+        BBBPWMSignal* _aptrPWMSignals[e_pwmSignalsAvailable];
+        
     };
     
     class BeagleBoneFactory
