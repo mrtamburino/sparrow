@@ -8,7 +8,16 @@ include $(PROJECT_HOME)/base.mk
 FC_OBJ=$(SPARROW_BIN_PATH)/flyctl/flyctl.o
 SPARROW_OBJ=$(SPARROW_BIN_PATH)/sparrow.o $(SPARROW_BIN_PATH)/sparrowmgr.o
 TEST_OBJ=$(SPARROW_BIN_PATH)/preader.o $(SPARROW_BIN_PATH)/main.o
-BEAGLEBOARD_OBJ=$(SPARROW_BIN_PATH)/hal/beagle/beagleboard.o
+BEAGLEBOARD_OBJ=$(SPARROW_BIN_PATH)/hal/beagle/beagleboard.o $(SPARROW_BIN_PATH)/hal/beagle/bbbproperties.o
+
+$(SPARROW_BIN_PATH)/hal/beagle/bbbproperties.o: $(SPARROW_SRC_PATH)/hal/beagle/bbbproperties.cpp
+	@echo
+	@echo "[MAKE INFO] Compiling $?"
+	@echo "   File to compie: $?"
+	@echo "   Obj file      : $@"
+	$(SPARROW_CC) $(SPARROW_CFLAG) $(SPARROW_LOG_SETTING) -c $? -o $@
+	@echo "[MAKE INFO] Compile $? succesfull!"
+	@echo
 
 $(SPARROW_BIN_PATH)/hal/beagle/beagleboard.o: $(SPARROW_SRC_PATH)/hal/beagle/beagleboard.cpp
 	@echo
