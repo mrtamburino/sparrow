@@ -22,26 +22,25 @@ namespace hal
     {
     public:
         
-        BBBProperties ():_sEhrPWMA0(NULL),
-                        _sEhrPWMA1(NULL),
-                        _sEhrPWMB0(NULL),
-                        _sEhrPWMB1(NULL){}
+        BBBProperties ():_sEhrPWM0A(NULL),
+                         _sEhrPWM0B(NULL),
+                         _sEhrPWM1A(NULL),
+                         _sEhrPWM1B(NULL){}
         ~BBBProperties ();
         
         void setProperty (char* sName_IN, char*);
         char* getProperty (const char*);
-        unsigned char isEmpty (const char*);
 
     private:
-        char* _sEhrPWMA0;
-        char* _sEhrPWMA1;
-        char* _sEhrPWMB0;
-        char* _sEhrPWMB1;
+        char* _sEhrPWM0A;
+        char* _sEhrPWM0B;
+        char* _sEhrPWM1A;
+        char* _sEhrPWM1B;
         
-        void setEHRPWMA0 (char* sValue_IN);
-        void setEHRPWMA1 (char* sValue_IN);
-        void setEHRPWMB0 (char* sValue_IN);
-        void setEHRPWMB1 (char* sValue_IN);
+        void setEHRPWM0A (char* sValue_IN);
+        void setEHRPWM0B (char* sValue_IN);
+        void setEHRPWM1A (char* sValue_IN);
+        void setEHRPWM1B (char* sValue_IN);
     };
     
 }

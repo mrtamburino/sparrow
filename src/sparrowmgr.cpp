@@ -29,19 +29,19 @@ SparrowMgr::~SparrowMgr ()
   _shutDownSubsystems();
 }
 
-void SparrowMgr::_initBoardCtrl()
+void SparrowMgr::_initBoardCtrl ()
 {
   _ptrBoardCtrl = hal::getBoardCtrl ();
   
   // Check: pwm signals available has to be equal or greater that number of motors
-  if ( _ptrBoardCtrl->countPWMSignalsUnclamed () < _eMotorsNum)
+  if ( _ptrBoardCtrl->countPWMSignals () < _eMotorsNum)
     {
       // ERROR
       THROW_EXCEPTION(FewPWMSignalsException);
     }
 }
 
-void SparrowMgr::_initMotorsCtrl()
+void SparrowMgr::_initMotorsCtrl ()
 {
   spwIMLOG(SPARROW_SUBMODULE_MOTORCTRL, "Initializing %d Motors Controller\n", _eMotorsNum);
 
@@ -49,7 +49,7 @@ void SparrowMgr::_initMotorsCtrl()
   
   _ptrMotorsCtrl = new sfa::MotorCtrl*[_eMotorsNum];
   
-  for(unsigned char indx = 0; indx < _eMotorsNum; indx++)
+  for (unsigned char indx = 0; indx < _eMotorsNum; indx++)
     {      
       pwm = _ptrBoardCtrl->getPWMCtrl (indx);
       _ptrMotorsCtrl[indx] = new BLDCCtrl(pwm);

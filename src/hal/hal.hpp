@@ -42,7 +42,7 @@ namespace hal
         BoardCtrl(void){}
         virtual ~BoardCtrl(void){}
         
-        virtual unsigned char countPWMSignalsUnclamed(void) = 0;
+        virtual unsigned char countPWMSignals(void) = 0;
         virtual PWM* getPWMCtrl(const unsigned char)=0;
         virtual I2CMaster* getI2CMasterChannelCtrl(const unsigned char)=0;
     };

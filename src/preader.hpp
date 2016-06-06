@@ -41,7 +41,6 @@ class PpropertiesStore
 public:
     virtual void setProperty(char* sName_IN, char* sValue_IN) = 0;
     virtual char* getProperty(const char* s_Name_IN) = 0;
-    virtual unsigned char isEmpty(const char* s_Name_IN) = 0;
 };
 
 class PStoreTest: public PpropertiesStore
@@ -51,7 +50,6 @@ class PStoreTest: public PpropertiesStore
         printf("set property %s to %s\n", sName_IN, sValue_IN);
     }
     char* getProperty(const char* s_Name_IN){return NULL;}
-    unsigned char isEmpty(const char* s_Name_IN){return 1;}
     
 };
 

@@ -9,108 +9,108 @@
 
 hal::BBBProperties::~BBBProperties ()
 {
-  if(_sEhrPWMA0)
+  if(_sEhrPWM0A)
     {
-      free(_sEhrPWMA0);
-      _sEhrPWMA0 = NULL;
+      free(_sEhrPWM0A);
+      _sEhrPWM0A = NULL;
     }
   
-  if(_sEhrPWMA1)
+  if(_sEhrPWM0B)
     {
-      free(_sEhrPWMA1);
-      _sEhrPWMA1 = NULL;
+      free(_sEhrPWM0B);
+      _sEhrPWM0B = NULL;
     }
   
-  if(_sEhrPWMB0)
+  if(_sEhrPWM1A)
     {
-      free(_sEhrPWMB0);
-      _sEhrPWMB0 = NULL;
+      free(_sEhrPWM1A);
+      _sEhrPWM1A = NULL;
     }
   
-  if(_sEhrPWMB1)
+  if(_sEhrPWM1B)
     {
-      free(_sEhrPWMB1);
-      _sEhrPWMB1 = NULL;
+      free(_sEhrPWM1B);
+      _sEhrPWM1B = NULL;
     }
 }
 
-void hal::BBBProperties::setEHRPWMA0(char* sValue_IN)
+void hal::BBBProperties::setEHRPWM0A(char* sValue_IN)
 {
-  if(_sEhrPWMA0)
+  if(_sEhrPWM0A)
     {
-      free(_sEhrPWMA0);
-      _sEhrPWMA0 = NULL;
+      free(_sEhrPWM0A);
+      _sEhrPWM0A = NULL;
     }
 
   if(sValue_IN)
     {
       unsigned int len = strlen(sValue_IN);
-      if(!(_sEhrPWMA0 = (char*)malloc(len+1)))
+      if(!(_sEhrPWM0A = (char*)malloc(len+1)))
         {
           // ERRORE
         }
-      memcpy(sValue_IN, _sEhrPWMA0, len);
-      _sEhrPWMA0[len]='\0';
+      memcpy(sValue_IN, _sEhrPWM0A, len);
+      _sEhrPWM0A[len]='\0';
     }
 }
   
-void hal::BBBProperties::setEHRPWMA1 (char* sValue_IN)
+void hal::BBBProperties::setEHRPWM0B (char* sValue_IN)
 {
-  if(_sEhrPWMA1)
+  if(_sEhrPWM0B)
     {
-      free(_sEhrPWMA1);
-      _sEhrPWMA1 = NULL;
+      free(_sEhrPWM0B);
+      _sEhrPWM0B = NULL;
     }
 
   if(sValue_IN)
     {
       unsigned int len = strlen(sValue_IN);
-      if(!(_sEhrPWMA1 = (char*)malloc(len+1)))
+      if(!(_sEhrPWM0B = (char*)malloc(len+1)))
         {
           // ERRORE
         }
-      memcpy(sValue_IN, _sEhrPWMA1, len);
-      _sEhrPWMA1[len]='\0';
+      memcpy(sValue_IN, _sEhrPWM0B, len);
+      _sEhrPWM0B[len]='\0';
     }  
 }
   
-void hal::BBBProperties::setEHRPWMB0 (char* sValue_IN)
+void hal::BBBProperties::setEHRPWM1A (char* sValue_IN)
 {
-  if(_sEhrPWMB0)
+  if(_sEhrPWM1A)
     {
-      free(_sEhrPWMB0);
-      _sEhrPWMB0 = NULL;
+      free(_sEhrPWM1A);
+      _sEhrPWM1A = NULL;
     }
 
   if(sValue_IN)
     {
       unsigned int len = strlen(sValue_IN);
-      if(!(_sEhrPWMB0 = (char*)malloc(len+1)))
+      if(!(_sEhrPWM1A = (char*)malloc(len+1)))
         {
           // ERRORE
         }
-      memcpy(sValue_IN, _sEhrPWMB0, len);
-      _sEhrPWMB0[len]='\0';
+      memcpy(sValue_IN, _sEhrPWM1A, len);
+      _sEhrPWM1A[len]='\0';
     }  
 }
   
-void hal::BBBProperties::setEHRPWMB1 (char* sValue_IN)
+void hal::BBBProperties::setEHRPWM1B (char* sValue_IN)
 {
-  if(_sEhrPWMB1)
+  if(_sEhrPWM1B)
     {
-      free(_sEhrPWMA0);
-      _sEhrPWMB1 = NULL;
+      free(_sEhrPWM1B);
+      _sEhrPWM1B = NULL;
     }
 
   if(sValue_IN)
     {
       unsigned int len = strlen(sValue_IN);
-      if(!(_sEhrPWMB1 = (char*)malloc(len+1)))
+      if(!(_sEhrPWM1B = (char*)malloc(len+1)))
         {
           // ERRORE
         }
-      memcpy(sValue_IN, _sEhrPWMB1, len);
-      _sEhrPWMB1[len]='\0';
+      memcpy(sValue_IN, _sEhrPWM1B, len);
+      _sEhrPWM1B[len]='\0';
     }
 }
 
@@ -119,75 +119,52 @@ void hal::BBBProperties::setProperty (char* sName_IN, char* sValue_IN)
   if(!sName_IN)
     return;
   
-  if(!strcmp (sName_IN, "EHRPWMA0"))
+  if(!strcmp (sName_IN, "EHRPWM0A"))
     {
-      setEHRPWMA0 (sValue_IN);
+      setEHRPWM0A (sValue_IN);
       return;
     }
   
-  if(!strcmp (sName_IN, "EHRPWMA1"))
+  if(!strcmp (sName_IN, "EHRPWM0B"))
     {
-      setEHRPWMA1 (sValue_IN);
+      setEHRPWM0B (sValue_IN);
       return;
     }
   
-  if(!strcmp (sName_IN, "EHRPWMB0"))
+  if(!strcmp (sName_IN, "EHRPWM1A"))
     {
-      setEHRPWMB0 (sValue_IN);
+      setEHRPWM1A (sValue_IN);
       return;
     }
   
-  if(!strcmp (sName_IN, "EHRPWMB1"))
+  if(!strcmp (sName_IN, "EHRPWM1B"))
     {
-      setEHRPWMB1 (sValue_IN);
+      setEHRPWM1B (sValue_IN);
       return;
     }
   
-}
-
-unsigned char hal::BBBProperties::isEmpty (const char* sName_IN)
-{
-   if(!strcmp (sName_IN, "EHRPWMA0"))
-    {
-      return _sEhrPWMA0==NULL;
-    }
-  
-   if(!strcmp (sName_IN, "EHRPWMA1"))
-    {
-      return _sEhrPWMA1==NULL;
-    }
-   
-   if(!strcmp (sName_IN, "EHRPWMB0"))
-    {
-      return _sEhrPWMB0==NULL;
-    }
-   
-   if(!strcmp (sName_IN, "EHRPWMB1"))
-    {
-      return _sEhrPWMB1==NULL;
-    }  
 }
 
 char* hal::BBBProperties::getProperty (const char* sName_IN)
 {
-   if(!strcmp (sName_IN, "EHRPWMA0"))
+   if(!strcmp (sName_IN, "EHRPWM0A"))
     {
-      return _sEhrPWMA0;
+      return _sEhrPWM0A;
     }
   
-   if(!strcmp (sName_IN, "EHRPWMA1"))
+   if(!strcmp (sName_IN, "EHRPWM0B"))
     {
-      return _sEhrPWMA1;
+      return _sEhrPWM0B;
     }
    
-   if(!strcmp (sName_IN, "EHRPWMB0"))
+   if(!strcmp (sName_IN, "EHRPWM1A"))
     {
-      return _sEhrPWMB0;
+      return _sEhrPWM1A;
     }
    
-   if(!strcmp (sName_IN, "EHRPWMB1"))
+   if(!strcmp (sName_IN, "EHRPWM1B"))
     {
-      return _sEhrPWMB1;
+      return _sEhrPWM1B;
     }
 
 }

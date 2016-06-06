@@ -41,7 +41,7 @@ namespace hal
         BeagleBoardCtrl();
         ~BeagleBoardCtrl();
 
-        virtual unsigned char countPWMSignalsUnclamed(void);
+        virtual unsigned char countPWMSignals(void);
         virtual PWM* getPWMCtrl(const unsigned char);
         virtual I2CMaster* getI2CMasterChannelCtrl(const unsigned char);
         

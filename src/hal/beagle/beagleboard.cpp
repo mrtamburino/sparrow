@@ -80,25 +80,25 @@ hal::BeagleBoardCtrl::BeagleBoardCtrl()
 
   char* sPropertyValue = NULL;
   
-  sPropertyValue = bbbProperties.getProperty ("EHRPWMA0");
+  sPropertyValue = bbbProperties.getProperty ("EHRPWM0A");
   if(sPropertyValue)
     {
       _aptrPWMSignals[e_ehrpwm0a] = new BBBPWMSignal(sPropertyValue);
     }
-  sPropertyValue = bbbProperties.getProperty ("EHRPWMA1");
+  sPropertyValue = bbbProperties.getProperty ("EHRPWM0B");
   if(sPropertyValue)
     {
-      _aptrPWMSignals[e_ehrpwm0a] = new BBBPWMSignal(sPropertyValue);
+      _aptrPWMSignals[e_ehrpwm0b] = new BBBPWMSignal(sPropertyValue);
     }
-  sPropertyValue = bbbProperties.getProperty ("EHRPWMB0");
+  sPropertyValue = bbbProperties.getProperty ("EHRPWM1A");
   if(sPropertyValue)
     {
-      _aptrPWMSignals[e_ehrpwm0a] = new BBBPWMSignal(sPropertyValue);
+      _aptrPWMSignals[e_ehrpwm1a] = new BBBPWMSignal(sPropertyValue);
     }
-  sPropertyValue = bbbProperties.getProperty ("EHRPWMB0");
+  sPropertyValue = bbbProperties.getProperty ("EHRPWM1B");
   if(sPropertyValue)
     {
-      _aptrPWMSignals[e_ehrpwm0a] = new BBBPWMSignal(sPropertyValue);
+      _aptrPWMSignals[e_ehrpwm1b] = new BBBPWMSignal(sPropertyValue);
     }
 }
 
@@ -113,24 +113,30 @@ hal::BeagleBoardCtrl::~BeagleBoardCtrl()
     }
 }
 
-hal::PWM* hal::BeagleBoardCtrl::getPWMCtrl(const unsigned char uIndx_IN)
+hal::PWM* hal::BeagleBoardCtrl::getPWMCtrl (const unsigned char uIndx_IN)
 {
   halIMLOG(BEAGLE_SUBSYSTEM, "Create PWM controller: %d\n", uIndx_IN);
-  return NULL;
+  if (uIndx_IN >= hal::e_pwmSignalsAvailable)
+    {
+      halWMLOG(BEAGLE_SUBSYSTEM, "Wrong PWM signal required: %c\n", uIndx_IN);
+      return NULL;
+    }
+  
+  return _aptrPWMSignals[uIndx_IN];
 }
 
-hal::I2CMaster* hal::BeagleBoardCtrl::getI2CMasterChannelCtrl(const unsigned char uIndx_IN)
+hal::I2CMaster* hal::BeagleBoardCtrl::getI2CMasterChannelCtrl (const unsigned char uIndx_IN)
 {
   halIMLOG(BEAGLE_SUBSYSTEM, "Create I2C master controller: %d\n", uIndx_IN);
   return NULL;
 }
 
-unsigned char hal::BeagleBoardCtrl::countPWMSignalsUnclamed(void)
+unsigned char hal::BeagleBoardCtrl::countPWMSignals (void)
 {
   unsigned char ucAmount = 0;
   for(unsigned char indx = 0; indx < hal::e_pwmSignalsAvailable; indx++)
     {
-      if(!_aptrPWMSignals[indx])
+      if(_aptrPWMSignals[indx])
         {
           ucAmount++;
           
@@ -144,7 +150,7 @@ unsigned char hal::BeagleBoardCtrl::countPWMSignalsUnclamed(void)
 // --- BBB Factory
 // --------------------------------------------------
 
-hal::BeagleBoardCtrl* hal::BeagleBoneFactory::getBBBContoller(void)
+hal::BeagleBoardCtrl* hal::BeagleBoneFactory::getBBBContoller (void)
 {
   if(!_ptrBBBController)
     {
